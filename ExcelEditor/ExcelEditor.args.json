@@ -1,0 +1,50 @@
+{
+  "FileVersion": 2,
+  "Id": "d65d5c59-04ba-457a-b361-418b4b814b60",
+  "Items": [
+    {
+      "Id": "6453c9a5-4929-4e0a-8a37-f0354b8257d1",
+      "Command": "-e \"Activate MySheet\""
+    },
+    {
+      "Id": "2996670c-81f5-47d7-a4a7-c5878c44fd52",
+      "Command": "-e \"SetValue Heading\""
+    },
+    {
+      "Id": "c12cdda9-927b-4358-9317-2e4bbf8be071",
+      "Command": "\"C:\\Temp\\Crap.xlsx\""
+    },
+    {
+      "Id": "ddda0f83-b2f8-4430-aef9-b80b3f8f601a",
+      "Command": "-e \"SetValue SubHeading -r A3\""
+    },
+    {
+      "Id": "75513bb2-d4a8-4a56-9056-78c44882fe41",
+      "Command": "-e \"Select B4\""
+    },
+    {
+      "Id": "629b9709-521c-44ca-8b9f-7abe88afffb3",
+      "Command": "-e \"SetValue Martin\""
+    },
+    {
+      "Id": "815217f9-c1ec-41c5-adc1-46753df9d91a",
+      "Command": "-e \"SetValue 1 -r D1\""
+    },
+    {
+      "Id": "abb6de5e-22e0-41bf-bc84-226eea1ed265",
+      "Command": "-e \"SetValue 2 -r D2\""
+    },
+    {
+      "Id": "368eb4d5-8af1-4f26-baa1-d6b37a8d981a",
+      "Command": "-e \"SetValue 3 -r D3\""
+    },
+    {
+      "Id": "3dbd6c77-c03a-4583-91f1-4d0d29aebc52",
+      "Command": "-e \"SetFormula SUM(D1:D3) -r D4\""
+    },
+    {
+      "Id": "a0a5152c-8916-4ae7-b3cd-238285ae5962",
+      "Command": "-e \"Save\""
+    }
+  ]
+}

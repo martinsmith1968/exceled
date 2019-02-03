@@ -63,6 +63,7 @@ namespace ExcelEditor.Ioc
 
         private static ContainerBuilder RegisterInternals(this ContainerBuilder builder)
         {
+            builder.RegisterType<Application>().As<IApplication>().SingleInstance();
             builder.RegisterType<CommandFactory>().As<ICommandFactory>().SingleInstance();
 
             return builder;
