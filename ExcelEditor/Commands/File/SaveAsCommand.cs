@@ -1,5 +1,7 @@
 ﻿using System.IO;
 using ExcelEditor.Excel.Document;
+using ExcelEditor.Lib.Commands;
+using ExcelEditor.Lib.Excel.Document;
 using Ookii.CommandLine;
 
 namespace ExcelEditor.Commands.File

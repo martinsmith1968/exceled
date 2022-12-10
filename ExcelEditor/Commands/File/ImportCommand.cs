@@ -1,5 +1,5 @@
-﻿using ExcelEditor.Excel;
-using ExcelEditor.Excel.Document;
+﻿using ExcelEditor.Lib.Commands;
+using ExcelEditor.Lib.Excel.Document;
 using Ookii.CommandLine;
 
 namespace ExcelEditor.Commands.File
@@ -18,11 +18,15 @@ namespace ExcelEditor.Commands.File
 
             [CommandLineArgument(IsRequired = false, DefaultValue = FileType.CSV)]
             public FileType Type { get; set; }
+
+            [Alias("r")]
+            [CommandLineArgument(IsRequired = false, DefaultValue = null)]
+            public string Range { get; set; }
         }
 
         public override void Execute(IExcelDocument document, ImportArguments arguments)
         {
-
+            // TODO
         }
     }
 }

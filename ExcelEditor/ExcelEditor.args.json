@@ -3,16 +3,20 @@
   "Id": "d65d5c59-04ba-457a-b361-418b4b814b60",
   "Items": [
     {
+      "Id": "6a517e2b-1a02-494a-9550-2dbfbfe93c4c",
+      "Command": "\"C:\\Temp\\Sample1.xlsx\""
+    },
+    {
+      "Id": "c12cdda9-927b-4358-9317-2e4bbf8be071",
+      "Command": "\"%Temp%\\Sample1.xlsx\""
+    },
+    {
       "Id": "6453c9a5-4929-4e0a-8a37-f0354b8257d1",
       "Command": "-e \"Activate MySheet\""
     },
     {
       "Id": "2996670c-81f5-47d7-a4a7-c5878c44fd52",
       "Command": "-e \"SetValue Heading\""
-    },
-    {
-      "Id": "c12cdda9-927b-4358-9317-2e4bbf8be071",
-      "Command": "\"C:\\Temp\\Crap.xlsx\""
     },
     {
       "Id": "ddda0f83-b2f8-4430-aef9-b80b3f8f601a",
@@ -41,6 +45,26 @@
     {
       "Id": "3dbd6c77-c03a-4583-91f1-4d0d29aebc52",
       "Command": "-e \"SetFormula SUM(D1:D3) -r D4\""
+    },
+    {
+      "Id": "047dc39c-c1a9-40be-90b1-d140e75baf3f",
+      "Command": "-e \"SetValue Total -r A4\""
+    },
+    {
+      "Id": "65c3000e-408e-429b-9b47-74132edced81",
+      "Command": "-e \"Select B4\""
+    },
+    {
+      "Id": "cce9cec2-1be1-4cec-8596-664acd3abf38",
+      "Command": "-e \"SetFormula NOW()\""
+    },
+    {
+      "Id": "abd6b4ca-e37e-4d6e-9eb0-0539c74ccebc",
+      "Command": "-e \"SetFormat \\\"yyyy-mm-dd h:mm:ss AM/PM;@\\\"\""
+    },
+    {
+      "Id": "323d7779-c00d-49bc-a6e7-fa5dcd506b72",
+      "Command": "-e \"AutoFitColumns\""
     },
     {
       "Id": "a0a5152c-8916-4ae7-b3cd-238285ae5962",

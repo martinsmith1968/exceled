@@ -1,5 +1,6 @@
 ﻿using System;
-using ExcelEditor.Excel.Document;
+using ExcelEditor.Lib.Commands;
+using ExcelEditor.Lib.Excel.Document;
 using Ookii.CommandLine;
 
 namespace ExcelEditor.Commands.Edit
@@ -26,7 +27,7 @@ namespace ExcelEditor.Commands.Edit
                 : DateTime.TryParse(arguments.Text, out var dateTimeValue) ? (object)dateTimeValue
                 : arguments.Text;
 
-            Logger.WriteText($"{range.Reference}: {value}");
+            Logger.Information("{Reference}: {value}", range.Reference, value);
             document.ActiveWorksheet.Cells[range.Reference].Value = value;
         }
     }

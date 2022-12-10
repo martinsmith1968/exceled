@@ -1,4 +1,6 @@
-﻿using ExcelEditor.Excel.Document;
+﻿using DNX.Helpers.Strings;
+using ExcelEditor.Lib.Commands;
+using ExcelEditor.Lib.Excel.Document;
 using OfficeOpenXml;
 using Ookii.CommandLine;
 
@@ -18,17 +20,25 @@ namespace ExcelEditor.Commands.Edit
             [Alias("c")]
             [CommandLineArgument(IsRequired = false, DefaultValue = true)]
             public bool Calculate { get; set; }
+
+            [Alias("h")]
+            [CommandLineArgument(IsRequired = false, DefaultValue = false)]
+            public bool Hidden { get; set; }
         }
 
         public override void Execute(IExcelDocument document, SetFormulaArguments arguments)
         {
             var range = document.GetActiveRange(arguments.Range);
 
-            Logger.WriteText($"{range.Reference}: {arguments.Formula}");
-            document.ActiveWorksheet.Cells[range.Reference].Formula = arguments.Formula;
+            Logger.Information("{Reference}: {Formula}", range.Reference, arguments.Formula);
+            document.ActiveWorksheet.Cells[range.Reference].Formula = arguments.Formula.RemoveStartsWith(ExecutionContext.CommandCommentPrefix);
+
+            document.ActiveWorksheet.Cells[range.Reference].Style.Hidden = arguments.Hidden;
 
             if (arguments.Calculate)
+            {
                 document.ActiveWorksheet.Cells[range.Reference].Calculate();
+            }
         }
     }
 }

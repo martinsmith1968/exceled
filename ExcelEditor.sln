@@ -1,26 +1,37 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.136
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelEditor", "ExcelEditor\ExcelEditor.csproj", "{D65D5C59-04BA-457A-B361-418B4B814B60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExcelEditor", "ExcelEditor\ExcelEditor.csproj", "{D65D5C59-04BA-457A-B361-418B4B814B60}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".config", ".config", "{E8D1556D-8BDE-47A7-AB23-71C9192DF74B}"
+	ProjectSection(SolutionItems) = preProject
+		ExcelEditor\ExcelEditor.args.json = ExcelEditor\ExcelEditor.args.json
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExcelEditor.Lib.Tests", "ExcelEditor.Lib.Tests\ExcelEditor.Lib.Tests.csproj", "{C53AF488-329A-4B05-ADE3-809DB9E3D07C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExcelEditor.Lib", "ExcelEditor.Lib\ExcelEditor.Lib.csproj", "{CE98D5BE-089B-49D2-B5AA-CEF66FBEFF33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
-		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D65D5C59-04BA-457A-B361-418B4B814B60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D65D5C59-04BA-457A-B361-418B4B814B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D65D5C59-04BA-457A-B361-418B4B814B60}.Debug|x64.ActiveCfg = Debug|x64
 		{D65D5C59-04BA-457A-B361-418B4B814B60}.Debug|x64.Build.0 = Debug|x64
-		{D65D5C59-04BA-457A-B361-418B4B814B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D65D5C59-04BA-457A-B361-418B4B814B60}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D65D5C59-04BA-457A-B361-418B4B814B60}.Release|x64.ActiveCfg = Release|x64
 		{D65D5C59-04BA-457A-B361-418B4B814B60}.Release|x64.Build.0 = Release|x64
+		{C53AF488-329A-4B05-ADE3-809DB9E3D07C}.Debug|x64.ActiveCfg = Debug|x64
+		{C53AF488-329A-4B05-ADE3-809DB9E3D07C}.Debug|x64.Build.0 = Debug|x64
+		{C53AF488-329A-4B05-ADE3-809DB9E3D07C}.Release|x64.ActiveCfg = Release|x64
+		{C53AF488-329A-4B05-ADE3-809DB9E3D07C}.Release|x64.Build.0 = Release|x64
+		{CE98D5BE-089B-49D2-B5AA-CEF66FBEFF33}.Debug|x64.ActiveCfg = Debug|x64
+		{CE98D5BE-089B-49D2-B5AA-CEF66FBEFF33}.Debug|x64.Build.0 = Debug|x64
+		{CE98D5BE-089B-49D2-B5AA-CEF66FBEFF33}.Release|x64.ActiveCfg = Release|x64
+		{CE98D5BE-089B-49D2-B5AA-CEF66FBEFF33}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

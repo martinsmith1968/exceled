@@ -1,9 +1,14 @@
 ﻿using System;
 using Autofac;
-using ExcelEditor.Extensions;
 using ExcelEditor.Interfaces;
 using ExcelEditor.Ioc;
+using ExcelEditor.Lib.Extensions;
+using ExcelEditor.Logging.Enrichers;
+using Microsoft.Extensions.Configuration;
 using Ookii.CommandLine;
+using Serilog;
+
+// ReSharper disable InconsistentNaming
 
 namespace ExcelEditor
 {
@@ -17,12 +22,29 @@ namespace ExcelEditor
         {
             try
             {
-                Container = AutofacIocRegistrations.BuildContainer();
+                var configuration = new ConfigurationBuilder()
+                    .AddJsonFile("appSettings.json", true)
+                    .Build();
+
+                #if DEBUG
+                Serilog.Debugging.SelfLog.Enable(Console.Error);
+                #endif
+
+                Log.Logger = new LoggerConfiguration()
+                    .Enrich.FromLogContext()
+                    .Enrich.With<AppInfoEnricher>()
+                    .ReadFrom.Configuration(configuration)
+                    .CreateLogger();
+
+                Log.Debug(new string('-', 100));
+                Log.Information("{Application} Starting");
 
                 var arguments = args.ParseArguments<ApplicationArguments>(out Parser);
 
+                Container = AutofacIocRegistrations.BuildContainer(arguments.AssemblyFolders, arguments);
+
                 var application = Container.Resolve<IApplication>();
-                application.Execute(arguments);
+                application.Execute(Container);
 
                 return 0;
             }
@@ -30,19 +52,17 @@ namespace ExcelEditor
             {
                 Console.Error.WriteLine($"{e.GetType().Name} Error: {e.Message}");
 
-                Parser?.WriteUsageToConsole(new WriteUsageOptions()
-                {
-                    IncludeAliasInDescription = true
-                });
+                Parser.ShowHelpToConsole();
 
                 return 3;
             }
             catch (Exception e)
             {
-                Console.Error.WriteLine($"{e.GetType().Name} Error: {e.Message}");
+                Console.Error.WriteLine($"{e.GetType().Name} Error: {e.Message}{Environment.NewLine}{e}");
 
                 return 4;
             }
+            #if DEBUG
             finally
             {
                 if (System.Diagnostics.Debugger.IsAttached)
@@ -55,7 +75,7 @@ namespace ExcelEditor
                     Console.WriteLine();
                 }
             }
-
+            #endif
         }
     }
 }

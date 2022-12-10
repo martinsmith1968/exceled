@@ -1,6 +1,8 @@
-﻿namespace ExcelEditor.Excel.Elements
+﻿using ExcelEditor.Lib.Excel.Elements;
+
+namespace ExcelEditor.Excel.Elements
 {
-    public class Range
+    public class Range : IRange
     {
         public static string DefaultAddress = "A1";
         public string Reference { get; private set; }
@@ -9,7 +11,7 @@
 
         public int Column { get; private set; }
 
-        public static Range Parse(string addressText)
+        public static IRange Parse(string addressText)
         {
             if (string.IsNullOrEmpty(addressText))
                 return null;

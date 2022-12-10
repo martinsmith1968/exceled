@@ -1,4 +1,6 @@
-﻿namespace ExcelEditor.Interfaces
+﻿using ExcelEditor.Lib.Commands;
+
+namespace ExcelEditor.Interfaces
 {
     public interface ICommandFactory
     {

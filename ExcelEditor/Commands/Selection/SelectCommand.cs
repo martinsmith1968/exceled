@@ -1,7 +1,9 @@
 ﻿using System;
 using ExcelEditor.Excel.Document;
-using ExcelEditor.Excel.Elements;
+using ExcelEditor.Lib.Commands;
+using ExcelEditor.Lib.Excel.Document;
 using Ookii.CommandLine;
+using Range = ExcelEditor.Excel.Elements.Range;
 
 namespace ExcelEditor.Commands.Selection
 {

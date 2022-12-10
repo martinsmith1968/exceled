@@ -1,7 +1,9 @@
-﻿namespace ExcelEditor.Interfaces
+﻿using Autofac;
+
+namespace ExcelEditor.Interfaces
 {
     public interface IApplication
     {
-        void Execute(ApplicationArguments arguments);
+        void Execute(IContainer container);
     }
 }

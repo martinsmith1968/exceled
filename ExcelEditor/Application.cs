@@ -1,70 +1,96 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using Autofac;
+using ExcelEditor.Commands;
 using ExcelEditor.Excel.Document;
 using ExcelEditor.Interfaces;
-using OfficeOpenXml;
+using ExcelEditor.Lib.Commands;
+using ExcelEditor.Lib.Excel.Document;
+using ExcelEditor.Lib.Extensions;
+using Ookii.CommandLine;
+using Serilog;
+using Serilog.Context;
 
 namespace ExcelEditor
 {
     public class Application : IApplication
     {
+        private readonly ILogger _logger = Log.ForContext<Application>();
+        private readonly ICommandReader _commandReader;
         private readonly ICommandFactory _commandFactory;
+        private readonly ApplicationArguments _arguments;
 
-        public Application(ICommandFactory commandFactory)
+        public Application(
+            ICommandReader commandReader,
+            ICommandFactory commandFactory,
+            ApplicationArguments arguments
+            )
         {
+            _commandReader  = commandReader;
             _commandFactory = commandFactory;
+            _arguments      = arguments;
         }
 
-
-        public void Execute(ApplicationArguments arguments)
+        public void Execute(IContainer container)
         {
-            var excelPackage = CreateExcelPackage(arguments.FileName, null);
+            var document = new ExcelDocument(_arguments.OutputFileName, null);
 
-            var document = new ExcelDocument()
-            {
-                FileName     = arguments.FileName,
-                ExcelPackage = excelPackage
-            };
+            var commands = _commandReader.ParseCommands(_arguments.Commands);
 
-            ProcessCommands(document, arguments.Commands);
+            ProcessCommands(document, commands);
         }
 
         private void ProcessCommands(IExcelDocument document, IEnumerable<string> commands)
         {
             foreach (var commandText in commands)
             {
-                var commandParts = commandText.Split(" ".ToCharArray());
+                var commandParts = ParserExtensions.SplitCommandLineArguments(commandText);
+
                 var commandName = commandParts.FirstOrDefault() ?? string.Empty;
                 var commandArgs = commandParts.Skip(1).ToArray();
 
-                if (commandName.StartsWith("@"))
-                {
-                    var fileName = commandName.TrimStart("@".ToCharArray());
-
-                    var fileCommands = File.ReadAllLines(fileName)
-                        .Where(x => !string.IsNullOrEmpty(x))
-                        .Where(x => !x.StartsWith("#"))
-                        .ToArray();
-
-                    ProcessCommands(document, fileCommands);
-
-                    continue;
-                }
+                _logger.Debug("Parsing: {CommandName} {commandArguments}", commandName, commandArgs);
 
                 var command = _commandFactory.GetCommandByName(commandName);
                 if (command == null)
-                    throw new ArgumentOutOfRangeException(nameof(commandName), $"Unknown command: {commandName}");
+                    throw new ArgumentOutOfRangeException(nameof(commandName), $"Invalid or unsupported {nameof(ICommand)} : {commandName}");
 
-                command.Execute(document, commandArgs);
+
+                var success = ExecuteCommand(document, command, commandArgs);
+
+                // TODO: Decide how to proceed after command failure
             }
         }
 
-        private ExcelPackage CreateExcelPackage(string fileName, string templateFileName)
+        private static bool ExecuteCommand(IExcelDocument document, ICommand command, string[] commandArgs)
         {
-            // TODO
-            return new ExcelPackage();
+            using (LogContext.PushProperty("CommandName", command.Name))
+            {
+                try
+                {
+                    command.Execute(document, commandArgs);
+
+                    return true;
+                }
+                catch (CommandLineArgumentException e)
+                {
+                    if (command is IBaseParseableCommand parseableCommand)
+                    {
+                        parseableCommand.Parser.ShowHelpToConsole();
+                    }
+                    else
+                    {
+                        Console.Error.WriteLine($"{e.GetType().Name} Error: {e.Message}");
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine($"{e.GetType().Name} Error: {e.Message}{Environment.NewLine}{e}");
+                }
+
+                return false;
+            }
         }
     }
 }
